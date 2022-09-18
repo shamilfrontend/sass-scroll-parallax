@@ -1,0 +1,139 @@
+@mixin parallax-init($perspective: 1, $element: "body") {
+  @if $element == "body" {
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  }
+
+  #{$element} {
+    overflow: auto;
+    perspective: $perspective * 1px;
+    transform-style: preserve-3d;
+
+    &, * {
+      transform-style: preserve-3d;
+    }
+  }
+}
+
+@mixin parallax($distance: 0, $perspective: 1) {
+  transform: translateZ($distance * $perspective * 1px) scale(abs($distance - 1));
+  z-index: $distance * 1000;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  font-weight: 100;
+  line-height: 1;
+  background-color: #EEF1F3;
+}
+
+h1, h2 {
+  font-weight: 100;
+  margin: 0;
+}
+
+h1 {
+  font-size: 5em;
+  color: #1586D1;
+}
+
+h2 {
+  @include parallax(.2);
+
+  font-size: 3em;
+}
+
+.title {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 50px;
+  text-align: center;
+}
+
+@include parallax-init;
+
+.container {
+  :nth-child(1) {
+    @include parallax(-.4);
+
+    top: 200px;
+    left: 200px;
+  }
+
+  :nth-child(2) {
+    @include parallax(.2);
+
+    top: 200px;
+    left: 500px;
+  }
+
+  :nth-child(3) {
+    @include parallax(.3);
+
+    top: 400px;
+    left: 600px;
+  }
+
+  :nth-child(4) {
+    @include parallax(.1);
+
+    top: 500px;
+    left: 500px;
+  }
+
+  :nth-child(5) {
+    @include parallax(-2);
+
+    top: 2000px;
+    left: 2000px;
+  }
+
+  :nth-child(6) {
+    @include parallax(.4);
+
+    top: 600px;
+    left: 300px;
+  }
+
+  :nth-child(7) {
+    @include parallax(-1);
+
+    top: 400px;
+    left: 1000px;
+  }
+
+  :nth-child(8) {
+    @include parallax(-.4);
+
+    top: 100px;
+    left: 1400px;
+  }
+
+  :nth-child(9) {
+    @include parallax(.4);
+
+    top: 900px;
+    left: 500px;
+  }
+
+  :nth-child(10) {
+    @include parallax(-1);
+
+    top: 1600px;
+    left: 100px;
+  }
+
+  padding: 10%;
+  max-width: 40em;
+  margin: auto;
+
+  > * {
+    position: absolute;
+  }
+}
